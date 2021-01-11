@@ -6,11 +6,11 @@ namespace RecipeBox.Models
   {
     public Tag()
     {
-      this.Recipes = new HashSet<Recipe>();
+      this.Recipes = new HashSet<RecipeTag>();
     }
-
+    public int TagId { get; set; }
     public string Name {get; set;}
-    public virtual int ApplicationUser {get; set;}
+    public virtual ApplicationUser User {get; set;}
     public virtual ICollection<RecipeTag> Recipes {get; set;}
   }
 }
