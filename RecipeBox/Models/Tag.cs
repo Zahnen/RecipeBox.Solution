@@ -4,12 +4,13 @@ namespace RecipeBox.Models
 {
   public class Tag
   {
-    public Tag
+    public Tag()
     {
-      this.Recipes = new HashSet<Recipe>;
+      this.Recipes = new HashSet<Recipe>();
     }
 
-    public string 
-
+    public string Name {get; set;}
+    public virtual int ApplicationUser {get; set;}
+    public virtual ICollection<RecipeTag> Recipes {get; set;}
   }
 }
