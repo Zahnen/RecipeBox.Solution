@@ -35,7 +35,8 @@ namespace RecipeBox.Controllers
     public ActionResult Create()
     {
       ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Name");
-      ViewBag.Tags = _db.Tags.ToList();
+      ViewBag.Tags =_db.Tags.ToList();
+      // ViewBag.IngredientId = new SelectList(_db.Ingredients, "IngredientId", "IngredientName");
       return View();
     }
 

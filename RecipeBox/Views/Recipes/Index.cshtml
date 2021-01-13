@@ -4,7 +4,7 @@
 
 <h1>Recipes for</h1>
 
-@if (Model.Any())
+@if (@Model.Any())
 {
   <ul>
   @foreach (Recipe recipe in Model)
@@ -18,4 +18,4 @@ else
   <h3>No recipes have been added yet!</h3>
 }
 
-<p>@Html.ActionLink("Add new recipe", "AddIngredients")</p>
+<p>@Html.ActionLink("Add new recipe", "Create")</p> 

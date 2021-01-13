@@ -9,7 +9,7 @@ using RecipeBox.Models;
 namespace RecipeBox.Migrations
 {
     [DbContext(typeof(RecipeBoxContext))]
-    [Migration("20210112183252_Initial")]
+    [Migration("20210112235934_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,13 +189,15 @@ namespace RecipeBox.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ingredient");
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("RecipeBox.Models.Recipe", b =>
                 {
                     b.Property<int>("RecipeId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Ingredients");
 
                     b.Property<string>("Instructions");
 
@@ -331,7 +333,7 @@ namespace RecipeBox.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RecipeBox.Models.Recipe", "Recipe")
-                        .WithMany("Ingredients")
+                        .WithMany()
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

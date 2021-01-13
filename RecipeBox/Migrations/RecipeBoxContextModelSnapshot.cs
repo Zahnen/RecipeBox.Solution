@@ -195,6 +195,8 @@ namespace RecipeBox.Migrations
                     b.Property<int>("RecipeId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Ingredients");
+
                     b.Property<string>("Instructions");
 
                     b.Property<string>("Name");
@@ -329,7 +331,7 @@ namespace RecipeBox.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RecipeBox.Models.Recipe", "Recipe")
-                        .WithMany("Ingredients")
+                        .WithMany()
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

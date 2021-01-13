@@ -1,5 +1,4 @@
-<p>You Should only be able to see this if logged in</p>
-
+@using RecipeBox.Models
 @model RecipeBox.Models.Recipe
 
 <h4>Add new recipe</h4>
@@ -9,12 +8,16 @@
   @Html.Label("Recipe Name:")
   @Html.TextBoxFor(model => model.Name)
 
+  @if(ViewBag.Tags.Count > 0)
+  {
+    @Html.Label("Select Tag:")
+    @Html.DropDownList("TagId")
+  }
 
-  @* @Html.Label("Select Tag:")
-  @Html.DropDownList("TagId")*@
+  @Html.Label("Ingredients to include (separate each with a '-'):")
+  @Html.TextAreaFor(model => model.Ingredients)
 
-  @Html.Label("Select Ingredient:")
-  @Html.DropDownList("IngredientId:")
+
 
   <input type="submit" value="Add new recipe" class="btn btn-default" />
 
