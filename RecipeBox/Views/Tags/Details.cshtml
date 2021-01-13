@@ -1,0 +1,17 @@
+@model RecipeBox.Models.Tag
+
+<h1>@Model.Name</h1>
+
+@if (Model.Recipes == null)
+{
+  <p>No recipes have been associated with this tag.</p>
+}
+else
+{
+  <ul>
+  @foreach (var join in Model.Recipes)
+  {
+    <li>@Html.ActionLink($"{@join.Recipe.Name}", "Details", "Recipes", new { id = join.RecipeId } )</li>
+  }
+  </ul>
+}

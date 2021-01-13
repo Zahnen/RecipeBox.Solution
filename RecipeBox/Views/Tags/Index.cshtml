@@ -1,0 +1,22 @@
+@using RecipeBox.Models;
+@using System.Security.Claims
+@model IEnumerable<RecipeBox.Models.Tag>
+
+<h1>Tags</h1>
+<h3>Search recipes by tag</h3>
+
+@if (@Model.Any())
+{
+  <ul>
+  @foreach (Tag tag in Model)
+  {
+    <li>@Html.ActionLink($"{tag.Name}", "Details", new { id = tag.TagId })</li>
+  }
+  </ul>
+}
+else
+{
+  <h3>No tags have been added yet!</h3>
+}
+
+<p>@Html.ActionLink("Add new Tag", "Create")</p> 

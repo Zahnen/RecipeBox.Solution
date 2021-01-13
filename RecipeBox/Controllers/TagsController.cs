@@ -48,8 +48,8 @@ namespace RecipeBox.Controllers
     {
       var thisTag = _db.Tags
         .Include(tag => tag.Recipes)
-        .ThenInclude(join => join.Recipes)
-        .FirstOrDefault(tag = tag.TagId == id);
+        .ThenInclude(join => join.Recipe)
+        .FirstOrDefault(tag => tag.TagId == id);
       return View(thisTag);
     }
 
@@ -95,7 +95,7 @@ namespace RecipeBox.Controllers
       var thisTag = _db.Tags.FirstOrDefault(tag => tag.TagId == id);
       _db.Tags.Remove(thisTag);
       _db.SaveChanges();
-      return RedirectToAction("Index", "Reicpes");
+      return RedirectToAction("Index", "Recipes");
     }
 
     [HttpPost]
@@ -123,7 +123,7 @@ namespace RecipeBox.Controllers
           .Any(record=>record.RecipeId == RecipeId && record.TagId == tag.TagId);
         if(!thisrecord)
         {
-          _db.RecipeTag.add(new RecipeTag(){RecipeId=RecipeId, TagId=tag.TagId});
+          _db.RecipeTag.Add(new RecipeTag(){RecipeId=RecipeId, TagId=tag.TagId});
         }
       }
       _db.SaveChanges();

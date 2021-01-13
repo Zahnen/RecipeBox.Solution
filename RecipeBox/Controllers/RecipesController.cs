@@ -70,9 +70,48 @@ namespace RecipeBox.Controllers
 
     public async Task<ActionResult> Edit(int id)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIndentifier)?.Value;
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var thisItem = _db.Items.Where(entry => entry.U)
+      var thisRecipe = _db.Recipes
+        .Where(entry => entry.User.Id == currentUser.Id)
+        .FirstOrDefault(recipe=>recipe.RecipeId == id);
+      if(thisRecipe == null)
+      {
+        return RedirectToAction ("Details", new{id=id});
+      }
+      return View(thisRecipe);
     }
+
+    [HttpPost]
+    public ActionResult Edit(Recipe recipe)
+    {
+      _db.Entry(recipe).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", new{id=recipe.RecipeId});
+    }
+
+    public async Task<ActionResult> Delete(int id)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var thisRecipe = _db.Recipes
+        .Where(entry=>entry.User.Id == currentUser.Id)
+        .FirstOrDefault(recipe=>recipe.RecipeId == id);
+      if(thisRecipe == null)
+      {
+        return RedirectToAction("Details", new {id=id});
+      }
+      return View(thisRecipe);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisRecipe = _db.Recipes.FirstOrDefault(recipe=>recipe.RecipeId == id);
+      _db.Recipes.Remove(thisRecipe);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
   }
 }
