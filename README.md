@@ -1,7 +1,3 @@
-* figure out a string method for breaking up ingredient area. Foreach loop? Split-by-character?
-* Stretch goal search bar (search by ingredient, search by tag) ref(https://docs.microsoft.com/en-us/dotnet/csharp/how-to/search-strings)
-
-
 # --RecipeBox--
 ### An MVC application written in C#, January 12, 2021
 
