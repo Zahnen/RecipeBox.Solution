@@ -1,4 +1,7 @@
 
+@{
+  Layout = "_Layout";
+}
 
 @model RecipeBox.Models.Recipe
 
@@ -13,8 +16,14 @@
   @Html.Label("Recipe Name:")
   @Html.EditorFor(model => model.Name)
 
-  @Html.Label("Select Tag")
-  @Html.DropDownList("TagId")
+  @*@Html.Label("Select Tag")
+  @Html.DropDownList("TagId")*@
+
+  @Html.Label("Ingredients to include (separate each with - or , ):")
+  @Html.TextAreaFor(model => model.Ingredients, new { required = "required"})
+
+  @Html.Label("Instructions (separate each with - or , ):")
+  @Html.TextAreaFor(model => model.Instructions, new { required = "required"})
 
   <input type="submit" value="Save"/>
 

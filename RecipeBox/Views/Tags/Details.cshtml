@@ -1,8 +1,12 @@
+@{
+  Layout = "_Layout";
+}
 @model RecipeBox.Models.Tag
+
 
 <h1>@Model.Name</h1>
 
-@if (Model.Recipes == null)
+@if (Model.Recipes == null) ///this doesn't work
 {
   <p>No recipes have been associated with this tag.</p>
 }

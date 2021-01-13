@@ -1,0 +1,12 @@
+.nav-glyph {
+  background-color: #01497c;
+  color: #f0f8ff;
+  /* display: flex;
+  justify-content: center;
+  flex-wrap: wrap; */
+}
+
+btn.btn-dark {
+  text-align: center;
+  align-items: center;
+}

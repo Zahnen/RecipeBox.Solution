@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Factory</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css">
+  </head>
+  <body>
+      <nav class="navbar navbar-light nav-glyph">  
+      <div class="container-fluid" id = "nav-background">  
+        <ul class="nav navbar-nav">
+          <button type="button" class="btn btn-dark nav-glyph">
+            <span class="glyphicon glyphicon-home nav-glyph" aria-hidden="true"></span><li><a class="nav-text" href="/">Home</a></li>  
+          </button>
+          <button type="button" class="btn btn-dark nav-glyph">
+            <span class="glyphicon glyphicon-list nav-glyph" aria-hidden="true"></span><li><a class="nav-text" href="/Recipes/">Recipes</a></li>  
+          </button>
+          <button type="button" class="btn btn-dark nav-glyph">
+            <span class="glyphicon glyphicon-tag nav-glyph" aria-hidden="true"></span><li><a class="nav-text" href="/Tags/">Tags</a></li>  
+          </button>
+        </ul>  
+      </div>  
+    </nav>
+    <div class="container">
+      @RenderBody()
+    </div>
+  </body>
+</html>

@@ -9,7 +9,7 @@ using RecipeBox.Models;
 namespace RecipeBox.Migrations
 {
     [DbContext(typeof(RecipeBoxContext))]
-    [Migration("20210112235934_Initial")]
+    [Migration("20210113225012_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,22 +176,6 @@ namespace RecipeBox.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("RecipeBox.Models.Ingredient", b =>
-                {
-                    b.Property<int>("IngredientId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("IngredientName");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("IngredientId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Ingredients");
-                });
-
             modelBuilder.Entity("RecipeBox.Models.Recipe", b =>
                 {
                     b.Property<int>("RecipeId")
@@ -212,24 +196,6 @@ namespace RecipeBox.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
-                });
-
-            modelBuilder.Entity("RecipeBox.Models.RecipeIngredient", b =>
-                {
-                    b.Property<int>("RecipeIngredientId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("IngredientId");
-
-                    b.Property<int>("RecipeId");
-
-                    b.HasKey("RecipeIngredientId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("RecipeIngredient");
                 });
 
             modelBuilder.Entity("RecipeBox.Models.RecipeTag", b =>
@@ -311,31 +277,11 @@ namespace RecipeBox.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("RecipeBox.Models.Ingredient", b =>
-                {
-                    b.HasOne("RecipeBox.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("RecipeBox.Models.Recipe", b =>
                 {
                     b.HasOne("RecipeBox.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("RecipeBox.Models.RecipeIngredient", b =>
-                {
-                    b.HasOne("RecipeBox.Models.Ingredient", "Ingredient")
-                        .WithMany("Recipes")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RecipeBox.Models.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RecipeBox.Models.RecipeTag", b =>

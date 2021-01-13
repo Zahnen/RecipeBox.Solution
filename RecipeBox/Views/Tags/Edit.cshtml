@@ -1,5 +1,10 @@
+@{
+  Layout = "_Layout";
+}
+
 @using RecipeBox.Models
 @model RecipeBox.Models.Tag
+
 
 <h4>Edit @Model.Name Tag</h4>
 
@@ -10,6 +15,18 @@
   @Html.Label("Tag Name:")
   @Html.TextBoxFor(model => model.Name, new { required = "required"})
 
+<ul>
+  @foreach(var join in Model.Recipes)
+  {
+    <li>join.Name</li>
+    @using (Html.BeginForm("DeleteRecipe", "Tags"))
+    {
+      @Html.HiddenFor(model=>model.TagId)
+      @Html.Hidden("joinId", join.RecipeTagId)
+      <input type="submit" value="Remove" class="btn btn-danger" />
+    }
+  }
+</ul>
   <input type="submit" value="Save" class="btn btn-default" />
 
 }

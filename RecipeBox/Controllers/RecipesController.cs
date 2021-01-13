@@ -90,6 +90,31 @@ namespace RecipeBox.Controllers
       return RedirectToAction("Details", new{id=recipe.RecipeId});
     }
 
+    [Authorize]
+    public async Task<ActionResult> AddTag(int id)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      Recipe thisRecipe = _db.Recipes.Where(entry => entry.User.Id == currentUser.Id).FirstOrDefault(recipes => recipes.RecipeId == id);
+      // if(thisRecipe == null)
+      // {
+      //   return RedirectToAction("Details", new { id = id });
+      // }
+      ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Name");
+      return View(thisRecipe);
+    }
+
+    [HttpPost]
+    public ActionResult AddTag(Recipe recipe, int TagId)
+    {
+      if (TagId != 0)
+      {
+        _db.RecipeTag.Add(new RecipeTag() {TagId = TagId, RecipeId = recipe.RecipeId});
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
     public async Task<ActionResult> Delete(int id)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
