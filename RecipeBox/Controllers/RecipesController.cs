@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System;
 
 namespace RecipeBox.Controllers
 {
@@ -41,7 +42,7 @@ namespace RecipeBox.Controllers
     }
 
     [HttpPost]  
-    public async Task<ActionResult> Create (Recipe recipe, int TagId, int IngredientId)
+    public async Task<ActionResult> Create (Recipe recipe, int TagId)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
@@ -51,12 +52,27 @@ namespace RecipeBox.Controllers
       {
         _db.RecipeTag.Add(new RecipeTag() {TagId = TagId, RecipeId = recipe.RecipeId});
       }
-      if(IngredientId != 0) //if there's Ingredient, add it to Recipe
-      {
-        _db.RecipeIngredient.Add(new RecipeIngredient() {IngredientId = IngredientId, RecipeId = recipe.RecipeId});
-      }
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult Details(int id)
+    {
+      var thisRecipe = _db.Recipes
+        .Include(recipe => recipe.Tags)
+        .ThenInclude(join => join.Tag)
+        .FirstOrDefault(recipe => recipe.RecipeId == id);
+      char[] separators = new char[] { '-', ','};
+      ViewBag.SplitIngredients = thisRecipe.Ingredients.Split(separators, StringSplitOptions.RemoveEmptyEntries).ToList();
+      ViewBag.Instructions = thisRecipe.Instructions.Split(separators, StringSplitOptions.RemoveEmptyEntries).ToList();
+      return View(thisRecipe);
+    }
+
+    public async Task<ActionResult> Edit(int id)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIndentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var thisItem = _db.Items.Where(entry => entry.U)
     }
   }
 }

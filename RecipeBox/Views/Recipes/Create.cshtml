@@ -6,7 +6,7 @@
 @using(Html.BeginForm())
 {
   @Html.Label("Recipe Name:")
-  @Html.TextBoxFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name, new { required = "required"})
 
   @if(ViewBag.Tags.Count > 0)
   {
@@ -14,9 +14,11 @@
     @Html.DropDownList("TagId")
   }
 
-  @Html.Label("Ingredients to include (separate each with a '-'):")
-  @Html.TextAreaFor(model => model.Ingredients)
+  @Html.Label("Ingredients to include (separate each with - or , ):")
+  @Html.TextAreaFor(model => model.Ingredients, new { required = "required"})
 
+  @Html.Label("Instructions (separate each with - or , ):")
+  @Html.TextAreaFor(model => model.Instructions, new { required = "required"})
 
 
   <input type="submit" value="Add new recipe" class="btn btn-default" />

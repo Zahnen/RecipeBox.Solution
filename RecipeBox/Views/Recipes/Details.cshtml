@@ -1,0 +1,32 @@
+@model RecipeBox.Models.Recipe
+
+<h1>Ingredients Test</h1>
+<h1>Name: @Html.DisplayFor(model => model.Name)</h1>
+
+@if (Model.Ingredients == null)
+{
+  <p>No ingredients yet</p>
+}
+else
+{
+  <ul>
+  @foreach (String ingredient in ViewBag.SplitIngredients)
+  {
+    <li>@ingredient</li>
+  }
+</ul>
+}
+
+@if (Model.Instructions == null)
+{
+  <p>No instructions yet</p>
+}
+else
+{
+<ol>
+  @foreach (String step in ViewBag.Instructions)
+  {
+    <li>@step</li>
+  }
+</ol>
+}
